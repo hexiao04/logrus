@@ -15,8 +15,8 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	. "github.com/sirupsen/logrus"
-	. "github.com/sirupsen/logrus/internal/testutils"
+	. "github.com/hexiao04/logrus"
+	. "github.com/hexiao04/logrus/internal/testutils"
 )
 
 // TestReportCaller verifies that when ReportCaller is set, the 'func' field

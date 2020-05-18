@@ -7,7 +7,7 @@ import (
 	"log/syslog"
 	"os"
 
-	"github.com/sirupsen/logrus"
+	"github.com/hexiao04/logrus"
 )
 
 // SyslogHook to send logs via syslog.
