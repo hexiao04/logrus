@@ -151,6 +151,32 @@ func (entry *Entry) WithFields(fields Fields) *Entry {
 	return &Entry{Logger: entry.Logger, Data: data, Time: entry.Time, err: fieldErr, Context: entry.Context}
 }
 
+//add by hexiao04
+func (entry *Entry) AddFields(fields Fields) {
+	fieldErr := entry.err
+	for k, v := range fields {
+		isErrField := false
+		if t := reflect.TypeOf(v); t != nil {
+			switch t.Kind() {
+			case reflect.Func:
+				isErrField = true
+			case reflect.Ptr:
+				isErrField = t.Elem().Kind() == reflect.Func
+			}
+		}
+		if isErrField {
+			tmp := fmt.Sprintf("can not add field %q", k)
+			if fieldErr != "" {
+				fieldErr = entry.err + ", " + tmp
+			} else {
+				fieldErr = tmp
+			}
+		} else {
+			entry.Data[k] = v
+		}
+	}
+}
+
 // Overrides the time of the Entry.
 func (entry *Entry) WithTime(t time.Time) *Entry {
 	dataCopy := make(Fields, len(entry.Data))
